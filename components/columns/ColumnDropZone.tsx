@@ -9,6 +9,8 @@ import { WidgetTypeSelector } from '@/components/widgets/WidgetTypeSelector';
 import type { Column, WidgetType } from '@/lib/types';
 import { Trash2, Plus } from 'lucide-react';
 import { useState } from 'react';
+import { useDroppable } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,6 +34,12 @@ interface ColumnDropZoneProps {
 export function ColumnDropZone({ pageId, column }: ColumnDropZoneProps) {
   const { deleteColumn, addWidget } = useConfigStore();
   const [isWidgetSelectorOpen, setIsWidgetSelectorOpen] = useState(false);
+
+  const { setNodeRef, isOver } = useDroppable({
+    id: `column-${column.id}`,
+  });
+
+  const widgetIds = column.widgets.map((w) => `widget-${w.id}`);
 
   const handleAddWidget = (type: WidgetType) => {
     addWidget(pageId, column.id, type);
@@ -72,7 +80,12 @@ export function ColumnDropZone({ pageId, column }: ColumnDropZoneProps) {
         </AlertDialog>
       </div>
 
-      <div className="min-h-[200px] border-2 border-dashed rounded-md p-4">
+      <div
+        ref={setNodeRef}
+        className={`min-h-[200px] border-2 border-dashed rounded-md p-4 transition-colors ${
+          isOver ? 'border-primary bg-primary/5' : ''
+        }`}
+      >
         {column.widgets.length === 0 ? (
           <div className="flex items-center justify-center h-full text-center py-8">
             <div>
@@ -84,25 +97,27 @@ export function ColumnDropZone({ pageId, column }: ColumnDropZoneProps) {
             </div>
           </div>
         ) : (
-          <div className="space-y-2">
-            {column.widgets.map((widget) => (
-              <WidgetCard
-                key={widget.id}
-                widget={widget}
-                pageId={pageId}
-                columnId={column.id}
-              />
-            ))}
-            <Button
-              size="sm"
-              variant="outline"
-              className="w-full"
-              onClick={() => setIsWidgetSelectorOpen(true)}
-            >
-              <PlusIcon className="h-4 w-4 mr-2" />
-              Add Widget
-            </Button>
-          </div>
+          <SortableContext items={widgetIds} strategy={verticalListSortingStrategy}>
+            <div className="space-y-2">
+              {column.widgets.map((widget) => (
+                <WidgetCard
+                  key={widget.id}
+                  widget={widget}
+                  pageId={pageId}
+                  columnId={column.id}
+                />
+              ))}
+              <Button
+                size="sm"
+                variant="outline"
+                className="w-full"
+                onClick={() => setIsWidgetSelectorOpen(true)}
+              >
+                <PlusIcon className="h-4 w-4 mr-2" />
+                Add Widget
+              </Button>
+            </div>
+          </SortableContext>
         )}
       </div>
 

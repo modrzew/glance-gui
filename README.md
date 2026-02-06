@@ -10,6 +10,7 @@ A web-based configuration manager for [Glance](https://github.com/glanceapp/glan
 
 - Visual page management with column layouts
 - Support for all 26+ Glance widget types with pre-filled templates
+- Drag-and-drop widget reordering within and between columns
 - Monaco editor for widget-specific YAML properties
 - Import existing configurations and export to `glance.yml`
 - Layout validation to prevent invalid column configurations
@@ -107,7 +108,6 @@ glance-gui/
 - YAML comments are not preserved during import/export
 - Only validates YAML syntax, not widget-specific schemas
 - Theme and branding settings are not included
-- Widget drag-and-drop reordering is not implemented
 
 ## Development
 
