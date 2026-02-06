@@ -1,12 +1,50 @@
 {
   "name": "glance-gui",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Visual configuration manager for Glance dashboard",
+  "author": "Tomek Modrzyński",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modrzew/glance-gui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/modrzew/glance-gui/issues"
+  },
+  "homepage": "https://github.com/modrzew/glance-gui#readme",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "glance",
+    "dashboard",
+    "configuration",
+    "yaml",
+    "gui"
+  ],
+  "bin": {
+    "glance-gui": "./bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "app",
+    "components",
+    "lib",
+    "stores",
+    "hooks",
+    "public",
+    ".next",
+    "next.config.js",
+    "tsconfig.json",
+    "tailwind.config.ts",
+    "postcss.config.mjs"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

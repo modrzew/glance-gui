@@ -18,6 +18,18 @@ A web-based configuration manager for [Glance](https://github.com/glanceapp/glan
 
 ## Installation
 
+### Quick Start with npx
+
+The easiest way to run Glance GUI is with npx (no installation required):
+
+```bash
+npx glance-gui
+```
+
+This will start the server at [http://localhost:3000](http://localhost:3000).
+
+### Local Development
+
 Requirements:
 - Node.js 20 or higher
 - npm, pnpm, or yarn
@@ -123,13 +135,31 @@ npm run lint       # Linting
 
 See [IMPLEMENTATION.md](./IMPLEMENTATION.md) for implementation details and architecture decisions.
 
+## Publishing to npm
+
+To publish a new version to npm:
+
+1. Update the version in `package.json`
+2. Ensure you're logged in: `npm login`
+3. Publish: `npm publish`
+
+The `prepublishOnly` script will automatically build the application before publishing.
+
+To test the package locally before publishing:
+
+```bash
+npm link          # In this directory
+glance-gui        # Run the linked command
+npm unlink -g glance-gui  # Cleanup when done
+```
+
 ## Contributing
 
 This is a configuration tool for Glance. For the main Glance project, visit [glanceapp/glance](https://github.com/glanceapp/glance).
 
 ## License
 
-MIT License - See LICENSE file for details
+MIT License - See LICENSE.md file for details
 
 ---
 
