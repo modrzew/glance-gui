@@ -1,6 +1,6 @@
 {
   "name": "glance-gui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Visual configuration manager for Glance dashboard",
   "author": "Tomek Modrzyński",
   "license": "MIT",
