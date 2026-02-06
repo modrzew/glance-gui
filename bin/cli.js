@@ -5,14 +5,17 @@ const path = require('path');
 
 console.log('Starting Glance GUI...');
 console.log('Server will be available at http://localhost:3000');
+console.log('Press Ctrl+C to stop the server');
 
-const nextBin = path.join(__dirname, '..', 'node_modules', '.bin', 'next');
+// Project root is parent of bin directory
 const projectRoot = path.join(__dirname, '..');
 
-const server = spawn(nextBin, ['start'], {
+// Use npx to run next, which will find it in node_modules
+const server = spawn('npx', ['next', 'start'], {
   cwd: projectRoot,
   stdio: 'inherit',
-  env: { ...process.env, PORT: '3000' }
+  env: { ...process.env, PORT: '3000' },
+  shell: true
 });
 
 server.on('error', (err) => {
@@ -21,7 +24,7 @@ server.on('error', (err) => {
 });
 
 server.on('close', (code) => {
-  process.exit(code);
+  process.exit(code || 0);
 });
 
 // Handle graceful shutdown
